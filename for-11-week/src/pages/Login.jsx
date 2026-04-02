@@ -61,11 +61,6 @@ export default function Login() {
         <p className="auth-switch">
           Нет аккаунта? <Link to="/register">Зарегистрироваться</Link>
         </p>
-        <div className="demo-hint">
-          <p>
-            Демо: <strong>demo@test.com</strong> / <strong>1234</strong>
-          </p>
-        </div>
       </div>
     </div>
   );

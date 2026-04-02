@@ -1,13 +1,6 @@
 {
   "users": [
     {
-      "id": 1,
-      "email": "demo@test.com",
-      "password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
-      "role": "user",
-      "createdAt": "2024-01-01"
-    },
-    {
       "id": 1775154974694,
       "email": "aidosonalbaev03@gmail.com",
       "password": "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
@@ -55,32 +48,8 @@
   ],
   "expenses": [
     {
-      "desc": "Обед в кафе",
-      "amount": 4000,
-      "categoryId": 1,
-      "date": "2026-04-02",
-      "userId": 1,
-      "id": 1
-    },
-    {
-      "id": 2,
-      "userId": 1,
-      "categoryId": 2,
-      "desc": "Такси домой",
-      "amount": 1800,
-      "date": "2025-04-01"
-    },
-    {
-      "id": 3,
-      "userId": 1,
-      "categoryId": 3,
-      "desc": "Кроссовки",
-      "amount": 35000,
-      "date": "2025-03-28"
-    },
-    {
-      "desc": "оргро",
-      "amount": 64565,
+      "desc": "SALAM BRO",
+      "amount": 2550,
       "categoryId": 1,
       "date": "2026-04-02",
       "userId": 1775154974694,
