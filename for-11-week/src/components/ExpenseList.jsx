@@ -81,12 +81,7 @@ export function ExpenseList({ onEdit }) {
                     {cat?.name} · {expense.date}
                   </p>
                 </div>
-                <p className="expense-amount">
-                  {expense.amount.toLocaleString("ru-RU", {
-                    maximumFractionDigits: 0,
-                  })}{" "}
-                  ₸
-                </p>
+                <p className="expense-amount">{expense.amount} ₸</p>
                 <button
                   className="btn-icon"
                   onClick={() => onEdit(expense)}
@@ -106,10 +101,7 @@ export function ExpenseList({ onEdit }) {
             );
           })}
           <p className="list-total">
-            Итого ({filtered.length}):{" "}
-            <strong>
-              {total.toLocaleString("ru-RU", { maximumFractionDigits: 0 })} ₸
-            </strong>
+            Итого ({filtered.length}): <strong>{total} ₸</strong>
           </p>
         </>
       )}

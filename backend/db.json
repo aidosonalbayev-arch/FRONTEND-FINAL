@@ -12,32 +12,38 @@
     {
       "id": 1,
       "name": "Еда",
-      "color": "#1D9E75"
+      "color": "#1D9E75",
+      "icon": "🍔"
     },
     {
       "id": 2,
       "name": "Транспорт",
-      "color": "#378ADD"
+      "color": "#378ADD",
+      "icon": "🚗"
     },
     {
       "id": 3,
       "name": "Покупки",
-      "color": "#D4537E"
+      "color": "#D4537E",
+      "icon": "🛍️"
     },
     {
       "id": 4,
       "name": "Здоровье",
-      "color": "#639922"
+      "color": "#639922",
+      "icon": "💊"
     },
     {
       "id": 5,
       "name": "Развлечения",
-      "color": "#BA7517"
+      "color": "#BA7517",
+      "icon": "🎬"
     },
     {
       "id": 6,
       "name": "Прочее",
-      "color": "#888780"
+      "color": "#888780",
+      "icon": "📦"
     }
   ],
   "expenses": [
