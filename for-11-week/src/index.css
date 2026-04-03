@@ -223,7 +223,7 @@ select:focus {
 .summary-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 2fr));
-  gap: 10px;
+  gap: 35px;
   margin-bottom: 1.25rem;
 }
 .metric {
