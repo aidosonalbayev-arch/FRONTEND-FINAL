@@ -12,38 +12,32 @@
     {
       "id": 1,
       "name": "Еда",
-      "color": "#1D9E75",
-      "icon": "🍔"
+      "color": "#1D9E75"
     },
     {
       "id": 2,
       "name": "Транспорт",
-      "color": "#378ADD",
-      "icon": "🚗"
+      "color": "#378ADD"
     },
     {
       "id": 3,
       "name": "Покупки",
-      "color": "#D4537E",
-      "icon": "🛍️"
+      "color": "#D4537E"
     },
     {
       "id": 4,
       "name": "Здоровье",
-      "color": "#639922",
-      "icon": "💊"
+      "color": "#639922"
     },
     {
       "id": 5,
       "name": "Развлечения",
-      "color": "#BA7517",
-      "icon": "🎬"
+      "color": "#BA7517"
     },
     {
       "id": 6,
       "name": "Прочее",
-      "color": "#888780",
-      "icon": "📦"
+      "color": "#888780"
     }
   ],
   "expenses": [
@@ -51,9 +45,17 @@
       "desc": "SALAM BRO",
       "amount": 2550,
       "categoryId": 1,
-      "date": "2026-04-02",
+      "date": "2026-04-03",
       "userId": 1775154974694,
       "id": 4
+    },
+    {
+      "desc": "dsf",
+      "amount": 43543,
+      "categoryId": 3,
+      "date": "2026-04-02",
+      "userId": 1775154974694,
+      "id": 5
     }
   ]
 }

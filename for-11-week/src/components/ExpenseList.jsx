@@ -57,7 +57,7 @@ export function ExpenseList({ onEdit }) {
           <option value="all">Все категории</option>
           {categories.map((c) => (
             <option key={c.id} value={c.id}>
-              {c.icon} {c.name}
+              {c.name}
             </option>
           ))}
         </select>
@@ -78,7 +78,7 @@ export function ExpenseList({ onEdit }) {
                 <div className="expense-info">
                   <p className="expense-desc">{expense.desc}</p>
                   <p className="expense-meta">
-                    {cat?.icon} {cat?.name} · {expense.date}
+                    {cat?.name} · {expense.date}
                   </p>
                 </div>
                 <p className="expense-amount">

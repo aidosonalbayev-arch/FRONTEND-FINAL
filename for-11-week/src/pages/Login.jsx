@@ -14,7 +14,9 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
-    if (!email.trim() || !password) return setError("Заполните все поля");
+    if (!email.trim() || !password) {
+      return setError("Заполните все поля");
+    }
     setLoading(true);
     try {
       await login(email.trim(), password);

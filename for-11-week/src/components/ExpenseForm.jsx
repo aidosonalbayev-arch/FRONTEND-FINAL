@@ -40,10 +40,15 @@ export default function ExpenseForm({ editTarget = null, onDone }) {
 
   const validate = () => {
     const e = {};
-    if (!form.desc.trim()) e.desc = "Введите описание";
-    if (!form.amount || Number(form.amount) <= 0)
+    if (!form.desc.trim()) {
+      e.desc = "Введите описание";
+    }
+    if (!form.amount || Number(form.amount) <= 0) {
       e.amount = "Введите сумму больше 0";
-    if (!form.date) e.date = "Укажите дату";
+    }
+    if (!form.date) {
+      e.date = "Укажите дату";
+    }
     return e;
   };
 
@@ -51,7 +56,9 @@ export default function ExpenseForm({ editTarget = null, onDone }) {
     e.preventDefault();
     setServerErr("");
     const errs = validate();
-    if (Object.keys(errs).length) return setErrors(errs);
+    if (Object.keys(errs).length) {
+      return setErrors(errs);
+    }
     const data = {
       desc: form.desc.trim(),
       amount: parseFloat(form.amount),
@@ -111,7 +118,7 @@ export default function ExpenseForm({ editTarget = null, onDone }) {
         >
           {categories.map((cat) => (
             <option key={cat.id} value={cat.id}>
-              {cat.icon} {cat.name}
+              {cat.name}
             </option>
           ))}
         </select>
