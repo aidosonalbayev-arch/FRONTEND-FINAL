@@ -1,5 +1,3 @@
-// src/components/Summary.jsx
-// Карточки с общей статистикой
 export function Summary({ expenses }) {
   const total = expenses.reduce((s, e) => s + e.amount, 0);
 

@@ -1,5 +1,5 @@
-// src/components/ExpenseList.jsx
-// Список расходов с фильтрацией по категории и удалением
+// components/ExpenseList.jsx
+// Список расходов — теперь onEdit навигирует на /expenses/edit/:id
 import { useState } from "react";
 import { useExpenses } from "../context/ExpenseContext";
 
@@ -13,13 +13,14 @@ export function ExpenseList({ onEdit }) {
     getCategoryById,
   } = useExpenses();
   const [filterCatId, setFilterCatId] = useState("all");
-  const [deleteId, setDeleteId] = useState(null); // id расхода который удаляется
+  const [deleteId, setDeleteId] = useState(null);
 
   const filtered =
     filterCatId === "all"
       ? expenses
       : expenses.filter((e) => String(e.categoryId) === String(filterCatId));
 
+  const sorted = [...filtered].sort((a, b) => b.date.localeCompare(a.date));
   const total = filtered.reduce((s, e) => s + e.amount, 0);
 
   const handleDelete = async (id) => {
@@ -48,7 +49,7 @@ export function ExpenseList({ onEdit }) {
   return (
     <div className="expense-list-card">
       <div className="list-header">
-        <h2>Расходы</h2>
+        <h2>Список расходов</h2>
         <select
           className="filter-select"
           value={filterCatId}
@@ -57,17 +58,17 @@ export function ExpenseList({ onEdit }) {
           <option value="all">Все категории</option>
           {categories.map((c) => (
             <option key={c.id} value={c.id}>
-              {c.name}
+              {c.icon} {c.name}
             </option>
           ))}
         </select>
       </div>
 
-      {filtered.length === 0 ? (
-        <p className="empty-hint">Нет расходов. Добавьте первый!</p>
+      {sorted.length === 0 ? (
+        <p className="empty-hint">Нет расходов. Нажмите "+ Добавить расход"</p>
       ) : (
         <>
-          {filtered.map((expense) => {
+          {sorted.map((expense) => {
             const cat = getCategoryById(expense.categoryId);
             return (
               <div key={expense.id} className="expense-item">
@@ -78,10 +79,17 @@ export function ExpenseList({ onEdit }) {
                 <div className="expense-info">
                   <p className="expense-desc">{expense.desc}</p>
                   <p className="expense-meta">
-                    {cat?.name} · {expense.date}
+                    {cat?.icon} {cat?.name} · {expense.date}
                   </p>
                 </div>
-                <p className="expense-amount">{expense.amount} ₸</p>
+                <p className="expense-amount">
+                  {expense.amount.toLocaleString("ru-RU", {
+                    maximumFractionDigits: 0,
+                  })}{" "}
+                  ₸
+                </p>
+
+                {/* Кнопка редактирования → навигирует на /expenses/edit/:id */}
                 <button
                   className="btn-icon"
                   onClick={() => onEdit(expense)}
@@ -89,6 +97,7 @@ export function ExpenseList({ onEdit }) {
                 >
                   ✎
                 </button>
+
                 <button
                   className="btn-icon btn-danger"
                   onClick={() => handleDelete(expense.id)}
@@ -100,8 +109,12 @@ export function ExpenseList({ onEdit }) {
               </div>
             );
           })}
+
           <p className="list-total">
-            Итого ({filtered.length}): <strong>{total} ₸</strong>
+            Итого ({filtered.length}):{" "}
+            <strong>
+              {total.toLocaleString("ru-RU", { maximumFractionDigits: 0 })} ₸
+            </strong>
           </p>
         </>
       )}

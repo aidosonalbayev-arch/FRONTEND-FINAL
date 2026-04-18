@@ -6,6 +6,34 @@
       "password": "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
       "role": "user",
       "createdAt": "2026-04-02"
+    },
+    {
+      "id": 1775461089596,
+      "email": "test@gmail.com",
+      "password": "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
+      "role": "user",
+      "createdAt": "2026-04-06"
+    },
+    {
+      "id": 1775463373412,
+      "email": "nurbolat@gmail.com",
+      "password": "e357a75ae252b0de51dc0c8fb0f0bef4a376c3751e3f7471e839398991d8bb4d",
+      "role": "user",
+      "createdAt": "2026-04-06"
+    },
+    {
+      "id": 1775467782326,
+      "email": "azeke@gmail.com",
+      "password": "0f02612e9f352c1db2e91525f58d563bb34ef2f62310ad8e722567dd0585be8e",
+      "role": "user",
+      "createdAt": "2026-04-06"
+    },
+    {
+      "id": 1776535417064,
+      "email": "test1@gmail.com",
+      "password": "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
+      "role": "user",
+      "createdAt": "2026-04-18"
     }
   ],
   "categories": [
@@ -48,20 +76,44 @@
   ],
   "expenses": [
     {
-      "desc": "SALAM BRO",
-      "amount": 2550,
+      "desc": "WEDRINK",
+      "amount": 800,
       "categoryId": 1,
-      "date": "2026-04-03",
-      "userId": 1775154974694,
-      "id": 4
-    },
-    {
-      "desc": "dsf",
-      "amount": 43543,
-      "categoryId": 3,
       "date": "2026-04-02",
       "userId": 1775154974694,
       "id": 5
+    },
+    {
+      "desc": "BURGER",
+      "amount": 2500,
+      "categoryId": 1,
+      "date": "2026-04-06",
+      "userId": 1775154974694,
+      "id": 6
+    },
+    {
+      "desc": "Cofe",
+      "amount": 1800,
+      "categoryId": 1,
+      "date": "2026-04-07",
+      "userId": 1775467782326,
+      "id": 7
+    },
+    {
+      "desc": "Taxi2",
+      "amount": 2502,
+      "categoryId": 6,
+      "date": "2026-04-09",
+      "userId": 1775467782326,
+      "id": 8
+    },
+    {
+      "desc": "Coffee",
+      "amount": 1800,
+      "categoryId": 1,
+      "date": "2026-04-18",
+      "userId": 1775154974694,
+      "id": 9
     }
   ]
 }
