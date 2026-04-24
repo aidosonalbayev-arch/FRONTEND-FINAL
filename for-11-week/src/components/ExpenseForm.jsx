@@ -118,7 +118,7 @@ export default function ExpenseForm({ editTarget = null, onDone }) {
         >
           {categories.map((cat) => (
             <option key={cat.id} value={cat.id}>
-              {cat.name}
+              {cat.icon} {cat.name}
             </option>
           ))}
         </select>

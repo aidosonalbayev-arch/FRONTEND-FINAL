@@ -1,10 +1,14 @@
+// pages/Login.jsx
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { useDispatch } from "react-redux";
+import { notify } from "../store/notificationSlice";
 
 export default function Login() {
   const nav = useNavigate();
   const { login } = useAuth();
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -13,15 +17,14 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
-    if (!email.trim() || !password) {
-      return setError("Заполните все поля");
-    }
+    if (!email.trim() || !password) return setError("Заполните все поля");
     setLoading(true);
     try {
       await login(email.trim(), password);
       nav("/dashboard");
     } catch (err) {
       setError(err.message);
+      dispatch(notify.error(err.message));
     } finally {
       setLoading(false);
     }
@@ -33,9 +36,8 @@ export default function Login() {
         <h1 className="auth-title">Войти в аккаунт</h1>
         <form onSubmit={handleSubmit} noValidate>
           <div className="field">
-            <label htmlFor="email">Email</label>
+            <label>Email</label>
             <input
-              id="email"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -44,9 +46,8 @@ export default function Login() {
             />
           </div>
           <div className="field">
-            <label htmlFor="password">Пароль</label>
+            <label>Пароль</label>
             <input
-              id="password"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -62,6 +63,14 @@ export default function Login() {
         <p className="auth-switch">
           Нет аккаунта? <Link to="/register">Зарегистрироваться</Link>
         </p>
+        <div className="demo-hint">
+          <p>
+            Admin: <strong>admin@test.com</strong> / <strong>admin123</strong>
+          </p>
+          <p>
+            User: <strong>demo@test.com</strong> / <strong>1234</strong>
+          </p>
+        </div>
       </div>
     </div>
   );

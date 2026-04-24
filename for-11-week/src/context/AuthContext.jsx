@@ -1,37 +1,50 @@
-import { createContext, useContext, useState } from "react";
+// context/AuthContext.jsx
+// Обёртка над Redux authSlice — даёт удобный useAuth() хук.
+// user, isAdmin читаются из Redux через useSelector.
+import { createContext, useContext } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setUser,
+  clearUser,
+  selectUser,
+  selectIsAdmin,
+} from "../store/authSlice";
+import { resetTotal } from "../store/totalSlice";
 import { loginUser, registerUser } from "../api/api";
 
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(() => {
-    try {
-      const s = localStorage.getItem("et_user");
-      return s ? JSON.parse(s) : null;
-    } catch {
-      return null;
-    }
-  });
+  const dispatch = useDispatch();
+
+  const user = useSelector(selectUser);
+  const isAdmin = useSelector(selectIsAdmin); // boolean, НЕ функция
 
   const login = async (email, password) => {
     const userData = await loginUser(email, password);
-    localStorage.setItem("et_user", JSON.stringify(userData));
-    setUser(userData);
+    dispatch(setUser(userData));
   };
 
   const register = async (email, password) => {
     const userData = await registerUser(email, password);
-    localStorage.setItem("et_user", JSON.stringify(userData));
-    setUser(userData);
+    dispatch(setUser(userData));
   };
 
   const logout = () => {
-    localStorage.removeItem("et_user");
-    setUser(null);
+    dispatch(clearUser());
+    dispatch(resetTotal());
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, register, logout }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        isAdmin, // boolean: true если role === "admin"
+        login,
+        register,
+        logout,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

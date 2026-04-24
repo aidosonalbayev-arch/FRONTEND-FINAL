@@ -1,19 +1,15 @@
 // components/ExpenseList.jsx
-// Список расходов — теперь onEdit навигирует на /expenses/edit/:id
+// Список расходов. Удаление — через Redux modal (НЕ window.confirm).
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useExpenses } from "../context/ExpenseContext";
+import { openModal } from "../store/modalSlice";
 
 export function ExpenseList({ onEdit }) {
-  const {
-    expenses,
-    categories,
-    loading,
-    error,
-    removeExpense,
-    getCategoryById,
-  } = useExpenses();
+  const { expenses, categories, loading, error, getCategoryById } =
+    useExpenses();
+  const dispatch = useDispatch();
   const [filterCatId, setFilterCatId] = useState("all");
-  const [deleteId, setDeleteId] = useState(null);
 
   const filtered =
     filterCatId === "all"
@@ -23,14 +19,17 @@ export function ExpenseList({ onEdit }) {
   const sorted = [...filtered].sort((a, b) => b.date.localeCompare(a.date));
   const total = filtered.reduce((s, e) => s + e.amount, 0);
 
-  const handleDelete = async (id) => {
-    if (!window.confirm("Удалить этот расход?")) return;
-    setDeleteId(id);
-    try {
-      await removeExpense(id);
-    } finally {
-      setDeleteId(null);
-    }
+  // Клик "Удалить" — открываем модал через Redux.
+  // Само удаление произойдёт, когда страница поймает событие "confirm-delete".
+  const handleDeleteClick = (expense) => {
+    dispatch(
+      openModal({
+        title: "Удалить расход?",
+        message: `Удалить "${expense.desc}" на сумму ${expense.amount} ₸?`,
+        itemId: expense.id,
+        itemType: "expense",
+      }),
+    );
   };
 
   if (loading)
@@ -89,7 +88,6 @@ export function ExpenseList({ onEdit }) {
                   ₸
                 </p>
 
-                {/* Кнопка редактирования → навигирует на /expenses/edit/:id */}
                 <button
                   className="btn-icon"
                   onClick={() => onEdit(expense)}
@@ -100,11 +98,10 @@ export function ExpenseList({ onEdit }) {
 
                 <button
                   className="btn-icon btn-danger"
-                  onClick={() => handleDelete(expense.id)}
-                  disabled={deleteId === expense.id}
+                  onClick={() => handleDeleteClick(expense)}
                   title="Удалить"
                 >
-                  {deleteId === expense.id ? "..." : "✕"}
+                  ✕
                 </button>
               </div>
             );

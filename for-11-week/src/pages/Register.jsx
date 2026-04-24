@@ -1,10 +1,14 @@
+// pages/Register.jsx
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { useDispatch } from "react-redux";
+import { notify } from "../store/notificationSlice";
 
 export default function Register() {
   const nav = useNavigate();
   const { register } = useAuth();
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
@@ -25,6 +29,7 @@ export default function Register() {
       nav("/dashboard");
     } catch (err) {
       setError(err.message);
+      dispatch(notify.error(err.message));
     } finally {
       setLoading(false);
     }
@@ -36,36 +41,30 @@ export default function Register() {
         <h1 className="auth-title">Создать аккаунт</h1>
         <form onSubmit={handleSubmit} noValidate>
           <div className="field">
-            <label htmlFor="email">Email</label>
+            <label>Email</label>
             <input
-              id="email"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="you@example.com"
-              autoComplete="email"
             />
           </div>
           <div className="field">
-            <label htmlFor="password">Пароль</label>
+            <label>Пароль</label>
             <input
-              id="password"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Минимум 6 символов"
-              autoComplete="new-password"
             />
           </div>
           <div className="field">
-            <label htmlFor="password2">Повторите пароль</label>
+            <label>Повторите пароль</label>
             <input
-              id="password2"
               type="password"
               value={password2}
               onChange={(e) => setPassword2(e.target.value)}
               placeholder="••••••"
-              autoComplete="new-password"
             />
           </div>
           {error && <p className="form-error">{error}</p>}

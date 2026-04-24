@@ -1,21 +1,22 @@
 // pages/Profile.jsx — /profile
-// Страница профиля пользователя
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { useAuth } from "../context/AuthContext";
 import { useExpenses } from "../context/ExpenseContext";
 import { deleteUser } from "../api/api";
+import { openModal } from "../store/modalSlice";
+import { notify } from "../store/notificationSlice";
 import Layout from "../components/Layout";
 
 export default function Profile() {
   const { user, logout } = useAuth();
   const { expenses } = useExpenses();
   const nav = useNavigate();
+  const dispatch = useDispatch();
 
   const [deleting, setDeleting] = useState(false);
-  const [error, setError] = useState("");
 
-  // Статистика пользователя
   const total = expenses.reduce((s, e) => s + e.amount, 0);
   const curMonth = new Date().toISOString().slice(0, 7);
   const monthTotal = expenses
@@ -24,19 +25,37 @@ export default function Profile() {
   const fmt = (n) =>
     n.toLocaleString("ru-RU", { maximumFractionDigits: 0 }) + " ₸";
 
-  // Удаление аккаунта (DELETE /users/:id)
-  const handleDeleteAccount = async () => {
-    if (!window.confirm("Удалить аккаунт? Все данные будут потеряны!")) return;
-    setDeleting(true);
-    try {
-      await deleteUser(user.id);
-      logout();
-      nav("/login");
-    } catch (err) {
-      setError(err.message);
-      setDeleting(false);
-    }
+  // Клик "Удалить аккаунт" → открыть модал
+  const handleDeleteAccount = () => {
+    dispatch(
+      openModal({
+        title: "Удалить аккаунт?",
+        message: "Все ваши данные будут потеряны безвозвратно!",
+        itemId: user.id,
+        itemType: "account",
+      }),
+    );
   };
+
+  // Слушаем подтверждение из модала
+  useEffect(() => {
+    const handler = async (e) => {
+      const { itemId, itemType } = e.detail;
+      if (itemType !== "account") return;
+      setDeleting(true);
+      try {
+        await deleteUser(itemId);
+        dispatch(notify.success("Аккаунт удалён"));
+        logout();
+        nav("/login");
+      } catch (err) {
+        dispatch(notify.error(err.message));
+        setDeleting(false);
+      }
+    };
+    window.addEventListener("confirm-delete", handler);
+    return () => window.removeEventListener("confirm-delete", handler);
+  }, [dispatch, logout, nav]);
 
   const initials = user.email.slice(0, 2).toUpperCase();
 
@@ -49,7 +68,6 @@ export default function Profile() {
         <h1>Профиль</h1>
       </div>
 
-      {/* Карточка пользователя */}
       <div className="profile-card">
         <div className="profile-avatar">{initials}</div>
         <div className="profile-info">
@@ -59,7 +77,6 @@ export default function Profile() {
         </div>
       </div>
 
-      {/* Статистика */}
       <div className="summary-grid" style={{ marginTop: "1rem" }}>
         <div className="metric">
           <p className="metric-label">Всего расходов</p>
@@ -81,13 +98,11 @@ export default function Profile() {
         </div>
       </div>
 
-      {/* Опасная зона */}
       <div className="danger-zone">
         <p className="danger-title">Опасная зона</p>
         <p className="danger-desc">
           Удаление аккаунта необратимо. Все расходы будут удалены.
         </p>
-        {error && <p className="form-error">{error}</p>}
         <button
           className="btn-danger"
           onClick={handleDeleteAccount}

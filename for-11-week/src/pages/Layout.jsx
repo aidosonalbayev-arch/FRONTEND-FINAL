@@ -1,10 +1,9 @@
-// components/Layout.jsx
-// Общий layout с шапкой — оборачивает все защищённые страницы
+// components/Layout.jsx — навигация зависит от роли
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 export default function Layout({ children }) {
-  const { user, logout, isAdmin } = useAuth(); // isAdmin — boolean
+  const { user, logout, isAdmin } = useAuth();
   const nav = useNavigate();
   const location = useLocation();
 
@@ -12,18 +11,16 @@ export default function Layout({ children }) {
     logout();
     nav("/login");
   };
-
   const initials = user?.email.slice(0, 2).toUpperCase();
   const isActive = (path) => location.pathname === path;
 
   return (
     <div className="app-layout">
-      {/* ─── Шапка ─────────────────────────────────────────────────────── */}
       <header className="dash-header">
         <div className="header-left">
           <p className="dash-logo">Expense Tracker</p>
-
           <nav className="header-nav">
+            {/* Общие ссылки */}
             <Link
               to="/dashboard"
               className={`nav-link ${isActive("/dashboard") ? "nav-link--active" : ""}`}
@@ -37,18 +34,18 @@ export default function Layout({ children }) {
               + Добавить
             </Link>
 
-            {/* ТОЛЬКО для admin */}
-            {isAdmin && (
+            {/* Только для admin */}
+            {isAdmin() && (
               <>
                 <Link
                   to="/categories"
-                  className={`nav-link ${isActive("/categories") ? "nav-link--active" : ""}`}
+                  className={`nav-link nav-link--admin ${isActive("/categories") ? "nav-link--active" : ""}`}
                 >
                   Категории
                 </Link>
                 <Link
                   to="/admin/users"
-                  className={`nav-link ${isActive("/admin/users") ? "nav-link--active" : ""}`}
+                  className={`nav-link nav-link--admin ${isActive("/admin/users") ? "nav-link--active" : ""}`}
                 >
                   Пользователи
                 </Link>
@@ -65,9 +62,12 @@ export default function Layout({ children }) {
         </div>
 
         <div className="dash-user">
+          {/* Бейджик роли */}
+          <span className={`role-badge role-badge--${user?.role}`}>
+            {user?.role}
+          </span>
           <div className="avatar">{initials}</div>
           <span className="user-email">{user?.email}</span>
-          {isAdmin && <span className="admin-badge">Admin</span>}
           <button className="btn-sm" onClick={handleLogout}>
             Выйти
           </button>

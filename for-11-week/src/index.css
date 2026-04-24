@@ -488,3 +488,293 @@ select:focus {
     flex-wrap: wrap;
   }
 }
+
+/* ─── Страница категорий ───────────────────────────────────────────────────── */
+.cat-page-grid {
+  display: grid;
+  grid-template-columns: 360px minmax(0, 1fr);
+  gap: 1rem;
+  align-items: start;
+}
+
+/* Сетка иконок */
+.icon-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.icon-btn {
+  width: 38px;
+  height: 38px;
+  font-size: 18px;
+  border: 1.5px solid transparent;
+  border-radius: 8px;
+  background: #f1efe8;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    border-color 0.15s,
+    background 0.15s;
+  padding: 0;
+}
+.icon-btn:hover {
+  background: #e8e6e0;
+}
+.icon-btn--active {
+  border-color: #378add;
+  background: #e6f1fb;
+}
+
+/* Сетка цветов */
+.color-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.color-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition:
+    transform 0.15s,
+    border-color 0.15s;
+  padding: 0;
+}
+.color-btn:hover {
+  transform: scale(1.15);
+}
+.color-btn--active {
+  border-color: #1a1a18;
+  transform: scale(1.15);
+}
+
+/* Превью категории */
+.cat-preview {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: #f1efe8;
+  border-radius: 8px;
+  font-size: 15px;
+}
+
+/* Строка категории в списке */
+.cat-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 0.5px solid #e8e6e0;
+  transition: background 0.15s;
+}
+.cat-item:last-child {
+  border-bottom: none;
+}
+.cat-item--editing {
+  background: #e6f1fb;
+  border-radius: 8px;
+  padding: 10px 8px;
+  margin: 0 -8px;
+}
+
+@media (max-width: 700px) {
+  .cat-page-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ─── Уведомления (Redux) ──────────────────────────────────────────────────── */
+.notifications-wrap {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 1000;
+  max-width: 320px;
+}
+.notification {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 0.5px solid transparent;
+  font-size: 13px;
+  animation: slideIn 0.25s ease;
+}
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+.notification--success {
+  background: #eaf3de;
+  border-color: #c0dd97;
+  color: #27500a;
+}
+.notification--error {
+  background: #fcebeb;
+  border-color: #f7c1c1;
+  color: #a32d2d;
+}
+.notification--info {
+  background: #e6f1fb;
+  border-color: #b5d4f4;
+  color: #0c447c;
+}
+.notification-icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  flex-shrink: 0;
+  background: currentColor;
+  color: #fff;
+}
+.notification--success .notification-icon {
+  background: #639922;
+}
+.notification--error .notification-icon {
+  background: #a32d2d;
+}
+.notification--info .notification-icon {
+  background: #185fa5;
+}
+.notification-msg {
+  flex: 1;
+  line-height: 1.4;
+}
+.notification-close {
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 0;
+  color: currentColor;
+  opacity: 0.6;
+}
+.notification-close:hover {
+  opacity: 1;
+}
+
+/* ─── Модальное окно (Redux) ───────────────────────────────────────────────── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  animation: fadeIn 0.2s ease;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.modal-box {
+  background: #fff;
+  border-radius: 14px;
+  padding: 0;
+  width: 100%;
+  max-width: 400px;
+  margin: 1rem;
+  overflow: hidden;
+  animation: scaleIn 0.2s ease;
+}
+@keyframes scaleIn {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+.modal-header {
+  padding: 1.25rem 1.25rem 0;
+}
+.modal-title {
+  font-size: 16px;
+  font-weight: 500;
+}
+.modal-body {
+  padding: 0.75rem 1.25rem 1.25rem;
+}
+.modal-message {
+  font-size: 13px;
+  color: #5f5e5a;
+  line-height: 1.5;
+}
+.modal-footer {
+  padding: 1rem 1.25rem;
+  border-top: 0.5px solid #e8e6e0;
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+.modal-btn {
+  width: auto;
+}
+
+/* ─── Роли ─────────────────────────────────────────────────────────────────── */
+.role-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 2px 8px;
+  border-radius: 20px;
+}
+.role-badge--admin {
+  background: #eeedfe;
+  color: #3c3489;
+}
+.role-badge--user {
+  background: #e1f5ee;
+  color: #085041;
+}
+
+.admin-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 3px 10px;
+  border-radius: 20px;
+  background: #eeedfe;
+  color: #3c3489;
+}
+
+.you-badge {
+  font-size: 11px;
+  color: #888780;
+  font-weight: 400;
+}
+
+/* Admin ссылки в навигации */
+.nav-link--admin {
+  color: #3c3489;
+}
+.nav-link--admin:hover {
+  background: #eeedfe;
+}
