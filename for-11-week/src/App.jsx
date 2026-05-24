@@ -1,4 +1,3 @@
-// App.jsx — корень приложения
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
@@ -20,18 +19,15 @@ import NoAccess from "./pages/NoAccess";
 
 export default function App() {
   return (
-    // Provider — Redux доступен везде
     <Provider store={store}>
       <BrowserRouter>
         <AuthProvider>
           <ExpenseProvider>
             <Routes>
-              {/* Публичные маршруты */}
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
               <Route path="/no-access" element={<NoAccess />} />
 
-              {/* Для всех залогиненных */}
               <Route
                 path="/dashboard"
                 element={
@@ -65,7 +61,6 @@ export default function App() {
                 }
               />
 
-              {/* Только для admin */}
               <Route
                 path="/categories"
                 element={
@@ -86,7 +81,6 @@ export default function App() {
               <Route path="*" element={<Navigate to="/dashboard" replace />} />
             </Routes>
 
-            {/* Глобальные — доступны на любой странице */}
             <ConfirmModal />
             <Notifications />
           </ExpenseProvider>

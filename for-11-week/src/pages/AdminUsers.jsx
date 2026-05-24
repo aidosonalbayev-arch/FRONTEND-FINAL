@@ -1,5 +1,3 @@
-// pages/AdminUsers.jsx — /admin/users (только admin)
-// Управление пользователями — смена ролей и удаление.
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useAuth } from "../context/AuthContext";
@@ -24,7 +22,6 @@ export default function AdminUsers() {
       .finally(() => setLoading(false));
   }, [dispatch]);
 
-  // Слушаем подтверждение удаления
   useEffect(() => {
     const handler = async (e) => {
       const { itemId, itemType } = e.detail;
@@ -56,7 +53,6 @@ export default function AdminUsers() {
     );
   };
 
-  // Смена роли (UPDATE)
   const handleSaveRole = async (userId) => {
     try {
       const u = users.find((u) => u.id === userId);

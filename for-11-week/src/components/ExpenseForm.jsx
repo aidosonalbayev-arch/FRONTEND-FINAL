@@ -1,4 +1,3 @@
-// src/components/ExpenseForm.jsx
 import { useState, useEffect } from "react";
 import { useExpenses } from "../context/ExpenseContext";
 

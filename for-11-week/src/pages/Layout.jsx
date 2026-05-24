@@ -1,4 +1,3 @@
-// components/Layout.jsx — навигация зависит от роли
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
@@ -20,7 +19,6 @@ export default function Layout({ children }) {
         <div className="header-left">
           <p className="dash-logo">Expense Tracker</p>
           <nav className="header-nav">
-            {/* Общие ссылки */}
             <Link
               to="/dashboard"
               className={`nav-link ${isActive("/dashboard") ? "nav-link--active" : ""}`}
@@ -34,7 +32,6 @@ export default function Layout({ children }) {
               + Добавить
             </Link>
 
-            {/* Только для admin */}
             {isAdmin() && (
               <>
                 <Link

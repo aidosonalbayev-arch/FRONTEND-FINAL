@@ -1,13 +1,9 @@
-// components/ui/Notifications.jsx
-// Компонент отображения toast-уведомлений
-// Читает из Redux store и показывает в правом нижнем углу
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { removeNotification } from "../../store/notificationSlice";
 
 export default function Notifications() {
   const dispatch = useDispatch();
-  // Читаем список уведомлений из Redux
   const items = useSelector((state) => state.notifications.items);
 
   return (
@@ -23,21 +19,16 @@ export default function Notifications() {
   );
 }
 
-// Отдельный компонент для одного уведомления
-// Автоматически исчезает через 3 секунды
 function NotificationItem({ notification, onRemove }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // Таймер — удаляем через 3 сек автоматически
     const timer = setTimeout(() => {
       onRemove();
     }, 3000);
-    // Очищаем таймер если компонент размонтировался раньше
     return () => clearTimeout(timer);
   }, [notification.id]);
 
-  // Иконка в зависимости от типа
   const icon =
     {
       success: "✓",

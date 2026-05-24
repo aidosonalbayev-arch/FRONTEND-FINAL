@@ -8,18 +8,18 @@
       "createdAt": "2026-04-01"
     },
     {
-      "id": 2,
-      "email": "demo@test.com",
-      "password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
-      "role": "user",
-      "createdAt": "2026-04-01"
-    },
-    {
       "id": 1775154974694,
       "email": "aidosonalbaev03@gmail.com",
       "password": "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
       "role": "user",
       "createdAt": "2026-04-02"
+    },
+    {
+      "id": 1777455299684,
+      "email": "azamat@gmail.com",
+      "password": "0a3943caa72106207c7de28e6a5dca9676a00aef633aee7fce124ce2f562c99d",
+      "role": "user",
+      "createdAt": "2026-04-29"
     }
   ],
   "categories": [
@@ -60,68 +60,58 @@
       "icon": "📦"
     },
     {
-      "name": "vghjv",
-      "icon": "🛍️",
+      "name": "fds",
+      "icon": "🎮",
       "color": "#888780",
       "id": 7
+    },
+    {
+      "name": "Путешествия",
+      "icon": "🐾",
+      "color": "#888780",
+      "id": 8
     }
   ],
   "expenses": [
     {
-      "id": 5,
-      "desc": "WEDRINK",
-      "amount": 800,
+      "desc": "burget",
+      "amount": 1234,
       "categoryId": 1,
-      "date": "2026-04-02",
-      "userId": 1775154974694
-    },
-    {
-      "id": 6,
-      "desc": "BURGER",
-      "amount": 2500,
-      "categoryId": 1,
-      "date": "2026-04-06",
-      "userId": 1775154974694
-    },
-    {
-      "id": 9,
-      "desc": "Coffee",
-      "amount": 1800,
-      "categoryId": 1,
-      "date": "2026-04-18",
-      "userId": 1775154974694
-    },
-    {
-      "id": 10,
-      "desc": "Обед",
-      "amount": 3500,
-      "categoryId": 1,
-      "date": "2026-04-10",
-      "userId": 2
-    },
-    {
-      "id": 11,
-      "desc": "Метро",
-      "amount": 200,
-      "categoryId": 2,
-      "date": "2026-04-12",
-      "userId": 2
-    },
-    {
-      "id": 12,
-      "desc": "Кино",
-      "amount": 2800,
-      "categoryId": 5,
-      "date": "2026-04-15",
-      "userId": 2
-    },
-    {
-      "desc": "uygbk",
-      "amount": 4156341,
-      "categoryId": 3,
-      "date": "2026-04-24",
+      "date": "2026-04-29",
       "userId": 1,
-      "id": 13
+      "id": 1
+    },
+    {
+      "desc": "coffee",
+      "amount": 12344555,
+      "categoryId": 1,
+      "date": "2026-04-29",
+      "userId": 1775154974694,
+      "id": 2
+    },
+    {
+      "desc": "В Вьетнам",
+      "amount": 340000,
+      "categoryId": 8,
+      "date": "2026-04-10",
+      "userId": 1777455299684,
+      "id": 3
+    },
+    {
+      "desc": "Бургер",
+      "amount": 1250,
+      "categoryId": 1,
+      "date": "2026-04-16",
+      "userId": 1777455299684,
+      "id": 5
+    },
+    {
+      "desc": "ывыап",
+      "amount": 20000,
+      "categoryId": 1,
+      "date": "2026-02-04",
+      "userId": 1777455299684,
+      "id": 6
     }
   ]
 }

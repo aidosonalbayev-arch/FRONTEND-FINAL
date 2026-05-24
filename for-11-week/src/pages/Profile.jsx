@@ -1,4 +1,3 @@
-// pages/Profile.jsx — /profile
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -25,7 +24,6 @@ export default function Profile() {
   const fmt = (n) =>
     n.toLocaleString("ru-RU", { maximumFractionDigits: 0 }) + " ₸";
 
-  // Клик "Удалить аккаунт" → открыть модал
   const handleDeleteAccount = () => {
     dispatch(
       openModal({
@@ -37,7 +35,6 @@ export default function Profile() {
     );
   };
 
-  // Слушаем подтверждение из модала
   useEffect(() => {
     const handler = async (e) => {
       const { itemId, itemType } = e.detail;

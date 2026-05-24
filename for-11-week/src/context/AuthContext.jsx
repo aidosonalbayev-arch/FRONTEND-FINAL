@@ -1,6 +1,3 @@
-// context/AuthContext.jsx
-// Обёртка над Redux authSlice — даёт удобный useAuth() хук.
-// user, isAdmin читаются из Redux через useSelector.
 import { createContext, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -18,7 +15,7 @@ export function AuthProvider({ children }) {
   const dispatch = useDispatch();
 
   const user = useSelector(selectUser);
-  const isAdmin = useSelector(selectIsAdmin); // boolean, НЕ функция
+  const isAdmin = useSelector(selectIsAdmin);
 
   const login = async (email, password) => {
     const userData = await loginUser(email, password);
@@ -39,7 +36,7 @@ export function AuthProvider({ children }) {
     <AuthContext.Provider
       value={{
         user,
-        isAdmin, // boolean: true если role === "admin"
+        isAdmin,
         login,
         register,
         logout,

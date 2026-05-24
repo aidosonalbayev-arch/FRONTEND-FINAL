@@ -1,4 +1,3 @@
-// api/api.js
 const BASE = "http://localhost:3001";
 
 async function request(url, options = {}) {
@@ -14,7 +13,6 @@ async function request(url, options = {}) {
   return res.json();
 }
 
-// AUTH
 export const registerUser = (email, password) =>
   request("/register", {
     method: "POST",
@@ -26,7 +24,6 @@ export const loginUser = (email, password) =>
     body: JSON.stringify({ email, password }),
   });
 
-// CATEGORIES
 export const fetchCategories = () => request("/categories");
 export const createCategory = (data) =>
   request("/categories", { method: "POST", body: JSON.stringify(data) });
@@ -35,8 +32,6 @@ export const updateCategory = (id, data) =>
 export const deleteCategory = (id) =>
   request(`/categories/${id}`, { method: "DELETE" });
 
-// EXPENSES
-// Если userId null — admin, получаем все расходы
 export const fetchExpenses = (userId) =>
   request(
     userId
@@ -51,7 +46,6 @@ export const updateExpense = (id, data) =>
 export const deleteExpense = (id) =>
   request(`/expenses/${id}`, { method: "DELETE" });
 
-// USERS
 export const fetchUsers = () => request("/users");
 export const fetchUserById = (id) => request(`/users/${id}`);
 export const updateUser = (id, data) =>

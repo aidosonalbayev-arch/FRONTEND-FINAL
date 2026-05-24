@@ -1,5 +1,3 @@
-// pages/NoAccess.jsx — /no-access
-// Страница "нет доступа" для неправильной роли
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import Layout from "../components/Layout";

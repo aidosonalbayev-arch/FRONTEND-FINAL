@@ -1,4 +1,3 @@
-// pages/Categories.jsx — только для admin
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useExpenses } from "../context/ExpenseContext";
@@ -52,7 +51,6 @@ export default function Categories() {
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
 
-  // Слушаем подтверждение удаления из глобального модала
   useEffect(() => {
     const handler = async (e) => {
       const { itemId, itemType } = e.detail;
@@ -105,7 +103,6 @@ export default function Categories() {
     }
   };
 
-  // Открываем Redux-модал
   const handleDeleteClick = (cat) => {
     dispatch(
       openModal({
@@ -125,7 +122,6 @@ export default function Categories() {
       </div>
 
       <div className="cat-page-grid">
-        {/* Форма */}
         <div className="card">
           <h2>{editId ? "Редактировать" : "Добавить категорию"}</h2>
           <form onSubmit={handleSubmit} noValidate>
@@ -206,7 +202,6 @@ export default function Categories() {
           </form>
         </div>
 
-        {/* Список */}
         <div className="expense-list-card">
           <div className="list-header">
             <h2>Все категории</h2>

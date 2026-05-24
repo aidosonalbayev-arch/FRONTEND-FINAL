@@ -1,5 +1,3 @@
-// components/ExpenseList.jsx
-// Список расходов. Удаление — через Redux modal (НЕ window.confirm).
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useExpenses } from "../context/ExpenseContext";
@@ -19,8 +17,6 @@ export function ExpenseList({ onEdit }) {
   const sorted = [...filtered].sort((a, b) => b.date.localeCompare(a.date));
   const total = filtered.reduce((s, e) => s + e.amount, 0);
 
-  // Клик "Удалить" — открываем модал через Redux.
-  // Само удаление произойдёт, когда страница поймает событие "confirm-delete".
   const handleDeleteClick = (expense) => {
     dispatch(
       openModal({

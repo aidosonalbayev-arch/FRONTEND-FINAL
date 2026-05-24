@@ -1,10 +1,8 @@
-// components/Layout.jsx
-// Общий layout с шапкой — оборачивает все защищённые страницы
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 export default function Layout({ children }) {
-  const { user, logout, isAdmin } = useAuth(); // isAdmin — boolean
+  const { user, logout, isAdmin } = useAuth();
   const nav = useNavigate();
   const location = useLocation();
 
@@ -18,7 +16,6 @@ export default function Layout({ children }) {
 
   return (
     <div className="app-layout">
-      {/* ─── Шапка ─────────────────────────────────────────────────────── */}
       <header className="dash-header">
         <div className="header-left">
           <p className="dash-logo">Expense Tracker</p>
@@ -37,7 +34,6 @@ export default function Layout({ children }) {
               + Добавить
             </Link>
 
-            {/* ТОЛЬКО для admin */}
             {isAdmin && (
               <>
                 <Link

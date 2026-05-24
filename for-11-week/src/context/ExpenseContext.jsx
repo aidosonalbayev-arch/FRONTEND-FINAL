@@ -1,4 +1,3 @@
-// context/ExpenseContext.jsx — CRUD с уведомлениями через Redux
 import { createContext, useContext, useState, useEffect } from "react";
 import { useAuth } from "./AuthContext";
 import { useDispatch } from "react-redux";
@@ -18,7 +17,7 @@ import {
 const ExpenseContext = createContext(null);
 
 export function ExpenseProvider({ children }) {
-  const { user, isAdmin } = useAuth(); // isAdmin — boolean
+  const { user, isAdmin } = useAuth();
   const dispatch = useDispatch();
 
   const [expenses, setExpenses] = useState([]);
@@ -26,7 +25,6 @@ export function ExpenseProvider({ children }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  // Загрузка категорий
   useEffect(() => {
     fetchCategories()
       .then(setCategories)
@@ -36,7 +34,6 @@ export function ExpenseProvider({ children }) {
       });
   }, []);
 
-  // Загрузка расходов — admin видит ВСЕ, user — только свои
   useEffect(() => {
     if (!user) {
       setExpenses([]);
@@ -45,12 +42,11 @@ export function ExpenseProvider({ children }) {
     }
     setLoading(true);
     setError(null);
-    // admin → null → GET /expenses (все), user → user.id → GET /expenses?userId=X
     const url = isAdmin ? null : user.id;
     fetchExpenses(url)
       .then((data) => {
         setExpenses(data);
-        dispatch(recalculate(data)); // пересчитать total в Redux
+        dispatch(recalculate(data));
       })
       .catch(() => {
         setError("Не удалось загрузить расходы");
@@ -59,12 +55,10 @@ export function ExpenseProvider({ children }) {
       .finally(() => setLoading(false));
   }, [user?.id, isAdmin]);
 
-  // Пересчитываем total при каждом изменении списка
   useEffect(() => {
     dispatch(recalculate(expenses));
   }, [expenses, dispatch]);
 
-  // ─── EXPENSES CRUD ────────────────────────────────────────────────────────
   const addExpense = async (data) => {
     const created = await createExpense({ ...data, userId: user.id });
     setExpenses((prev) => [created, ...prev]);
@@ -83,7 +77,6 @@ export function ExpenseProvider({ children }) {
     dispatch(notify.success("Расход удалён"));
   };
 
-  // ─── CATEGORIES CRUD ──────────────────────────────────────────────────────
   const addCategory = async (data) => {
     const created = await createCategory(data);
     setCategories((prev) => [...prev, created]);

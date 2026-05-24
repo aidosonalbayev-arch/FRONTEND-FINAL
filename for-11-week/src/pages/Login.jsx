@@ -1,4 +1,3 @@
-// pages/Login.jsx
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
@@ -66,9 +65,6 @@ export default function Login() {
         <div className="demo-hint">
           <p>
             Admin: <strong>admin@test.com</strong> / <strong>admin123</strong>
-          </p>
-          <p>
-            User: <strong>demo@test.com</strong> / <strong>1234</strong>
           </p>
         </div>
       </div>

@@ -1,6 +1,3 @@
-// pages/Dashboard.jsx — /dashboard
-// Слушает событие "confirm-delete" от глобального ConfirmModal
-// и выполняет удаление расхода.
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -17,14 +14,12 @@ export default function Dashboard() {
   const nav = useNavigate();
   const dispatch = useDispatch();
 
-  // Слушаем подтверждение из модала
   useEffect(() => {
     const handler = async (e) => {
       const { itemId, itemType } = e.detail;
       if (itemType !== "expense") return;
       try {
         await removeExpense(itemId);
-        // notify.success диспатчится внутри removeExpense
       } catch {
         dispatch(notify.error("Не удалось удалить расход"));
       }
