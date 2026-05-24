@@ -10,7 +10,6 @@ export default function Layout({ children }) {
     logout();
     nav("/login");
   };
-
   const initials = user?.email.slice(0, 2).toUpperCase();
   const isActive = (path) => location.pathname === path;
 
@@ -18,8 +17,9 @@ export default function Layout({ children }) {
     <div className="app-layout">
       <header className="dash-header">
         <div className="header-left">
-          <p className="dash-logo">Expense Tracker</p>
-
+          <p className="dash-logo">
+            Expense<span>.</span>
+          </p>
           <nav className="header-nav">
             <Link
               to="/dashboard"
@@ -33,24 +33,22 @@ export default function Layout({ children }) {
             >
               + Добавить
             </Link>
-
             {isAdmin && (
               <>
                 <Link
                   to="/categories"
-                  className={`nav-link ${isActive("/categories") ? "nav-link--active" : ""}`}
+                  className={`nav-link nav-link--admin ${isActive("/categories") ? "nav-link--active" : ""}`}
                 >
                   Категории
                 </Link>
                 <Link
                   to="/admin/users"
-                  className={`nav-link ${isActive("/admin/users") ? "nav-link--active" : ""}`}
+                  className={`nav-link nav-link--admin ${isActive("/admin/users") ? "nav-link--active" : ""}`}
                 >
                   Пользователи
                 </Link>
               </>
             )}
-
             <Link
               to="/profile"
               className={`nav-link ${isActive("/profile") ? "nav-link--active" : ""}`}
@@ -59,7 +57,6 @@ export default function Layout({ children }) {
             </Link>
           </nav>
         </div>
-
         <div className="dash-user">
           <div className="avatar">{initials}</div>
           <span className="user-email">{user?.email}</span>
@@ -69,7 +66,6 @@ export default function Layout({ children }) {
           </button>
         </div>
       </header>
-
       <main className="page-content">{children}</main>
     </div>
   );
