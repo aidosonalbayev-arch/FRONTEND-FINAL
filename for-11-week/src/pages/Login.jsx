@@ -32,8 +32,7 @@ export default function Login() {
   return (
     <div className="auth-page">
       <div className="auth-card">
-        <p className="auth-wordmark">Expense Tracker</p>
-        <h1 className="auth-title">Добро пожаловать</h1>
+        <h1 className="auth-title">Войти в аккаунт</h1>
         <form onSubmit={handleSubmit} noValidate>
           <div className="field">
             <label>Email</label>
@@ -57,14 +56,16 @@ export default function Login() {
           </div>
           {error && <p className="form-error">{error}</p>}
           <button type="submit" className="btn-primary" disabled={loading}>
-            {loading ? "Входим..." : "Войти"}
+            {loading ? "Вход..." : "Войти"}
           </button>
         </form>
         <p className="auth-switch">
           Нет аккаунта? <Link to="/register">Зарегистрироваться</Link>
         </p>
         <div className="demo-hint">
-          Admin: <strong>admin@test.com</strong> / <strong>admin123</strong>
+          <p>
+            Admin: <strong>admin@test.com</strong> / <strong>admin123</strong>
+          </p>
         </div>
       </div>
     </div>

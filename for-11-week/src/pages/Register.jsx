@@ -10,21 +10,25 @@ export default function Register() {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [password2, setPassword2] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
-    if (!email.trim() || !password) return setError("Заполните все поля");
-    if (password.length < 6) return setError("Пароль не менее 6 символов");
+    if (!email.trim() || !password || !password2)
+      return setError("Заполните все поля");
+    if (!/\S+@\S+\.\S+/.test(email)) return setError("Некорректный email");
+    if (password.length < 6) return setError("Пароль минимум 6 символов");
+    if (password !== password2) return setError("Пароли не совпадают");
     setLoading(true);
     try {
       await register(email.trim(), password);
-      dispatch(notify.success("Аккаунт создан"));
       nav("/dashboard");
     } catch (err) {
       setError(err.message);
+      dispatch(notify.error(err.message));
     } finally {
       setLoading(false);
     }
@@ -33,7 +37,6 @@ export default function Register() {
   return (
     <div className="auth-page">
       <div className="auth-card">
-        <p className="auth-wordmark">Expense Tracker</p>
         <h1 className="auth-title">Создать аккаунт</h1>
         <form onSubmit={handleSubmit} noValidate>
           <div className="field">
@@ -51,12 +54,21 @@ export default function Register() {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="мин. 6 символов"
+              placeholder="Минимум 6 символов"
+            />
+          </div>
+          <div className="field">
+            <label>Повторите пароль</label>
+            <input
+              type="password"
+              value={password2}
+              onChange={(e) => setPassword2(e.target.value)}
+              placeholder="••••••"
             />
           </div>
           {error && <p className="form-error">{error}</p>}
           <button type="submit" className="btn-primary" disabled={loading}>
-            {loading ? "Создаём..." : "Зарегистрироваться"}
+            {loading ? "Создание..." : "Зарегистрироваться"}
           </button>
         </form>
         <p className="auth-switch">
